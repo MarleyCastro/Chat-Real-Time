@@ -1,6 +1,6 @@
 ﻿# Chat-Real-Time
 
-# <a href="https://www.youtube.com/watch?v=qiTa1eJh9JI&feature=youtu.be">Clieque aqui !! </a>
+# <a href="https://www.youtube.com/watch?v=qiTa1eJh9JI&feature=youtu.be">Clique aqui !! </a>
 
 Ah, você quer uma **descrição (README)** para o seu projeto de chat em tempo real no GitHub\! Isso é essencial para que outros desenvolvedores entendam o que o projeto faz e como executá-lo.
 
@@ -82,5 +82,6 @@ O projeto segue a estrutura padrão do Spring Boot:
 
 
 <img width="1755" height="943" alt="image" src="https://github.com/user-attachments/assets/6ef55d29-d9b5-43e2-ac64-271ae83cd03c" />
+
 
 
