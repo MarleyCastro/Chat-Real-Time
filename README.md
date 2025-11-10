@@ -1,27 +1,33 @@
 ﻿# Chat-Real-Time
 
-💬 Chat Application (Spring Boot & WebSocket)
-Este é um projeto simples de aplicação de chat em tempo real construído com Spring Boot no backend e WebSockets (utilizando STOMP e SockJS) no frontend.
+Ah, você quer uma **descrição (README)** para o seu projeto de chat em tempo real no GitHub\! Isso é essencial para que outros desenvolvedores entendam o que o projeto faz e como executá-lo.
 
-✨ Recursos
-Comunicação em Tempo Real: Utiliza WebSockets para envio e recebimento instantâneo de mensagens.
+Aqui está um modelo de README em Markdown, que você pode salvar como `README.md` na raiz do seu projeto antes de enviá-lo para o GitHub:
 
-Backend Robusto: Desenvolvido com Spring Boot.
+-----
 
-Protocolo STOMP: Utilizado para criar um message broker simples (/topic/messages).
+# 💬 Chat Application (Spring Boot & WebSocket)
 
-Frontend Simples: Interface construída com HTML, JavaScript e Bootstrap.
+Este é um projeto simples de aplicação de chat em tempo real construído com **Spring Boot** no backend e **WebSockets** (utilizando STOMP e SockJS) no frontend.
 
-🛠️ Tecnologias Utilizadas
-Backend: Java 17+ e Spring Boot
+## ✨ Recursos
 
-WebSockets: Spring Messaging e SockJS/STOMP
+  * **Comunicação em Tempo Real:** Utiliza WebSockets para envio e recebimento instantâneo de mensagens.
+  * **Backend Robusto:** Desenvolvido com Spring Boot.
+  * **Protocolo STOMP:** Utilizado para criar um *message broker* simples (`/topic/messages`).
+  * **Frontend Simples:** Interface construída com HTML, JavaScript e Bootstrap.
 
-Frontend: HTML5, CSS (Bootstrap 5.x) e JavaScript
+## 🛠️ Tecnologias Utilizadas
 
-🏗️ Estrutura do Projeto
+  * **Backend:** Java 17+ e Spring Boot
+  * **WebSockets:** Spring Messaging e SockJS/STOMP
+  * **Frontend:** HTML5, CSS (Bootstrap 5.x) e JavaScript
+
+## 🏗️ Estrutura do Projeto
+
 O projeto segue a estrutura padrão do Spring Boot:
 
+```
 .
 ├── src/main/java/com/chat/app/
 │   ├── AppApplication.java
@@ -36,30 +42,42 @@ O projeto segue a estrutura padrão do Spring Boot:
 │       └── chat.html             # Frontend da Aplicação (HTML/JS)
 ├── pom.xml                       # Dependências do Maven
 └── README.md                     # Este arquivo
-🚀 Como Executar
-Pré-requisitos
-JDK (Java Development Kit) 17 ou superior
+```
 
-Maven ou Gradle
+## 🚀 Como Executar
 
-Uma IDE (IntelliJ IDEA, VS Code, Eclipse)
+### Pré-requisitos
 
-Passos de Execução
-Clone o Repositório
+  * JDK (Java Development Kit) 17 ou superior
+  * Maven ou Gradle
+  * Uma IDE (IntelliJ IDEA, VS Code, Eclipse)
 
-Bash
+### Passos de Execução
 
-git clone https://github.com/SeuUsuario/Seu-Repositorio.git
-cd Seu-Repositorio
-Compile e Execute Utilize o Maven Wrapper para iniciar a aplicação:
+1.  **Clone o Repositório**
 
-Bash
+    ```bash
+    git clone https://github.com/SeuUsuario/Seu-Repositorio.git
+    cd Seu-Repositorio
+    ```
 
-./mvnw spring-boot:run
-(Se estiver usando Windows, use mvnw spring-boot:run)
+2.  **Compile e Execute**
+    Utilize o Maven Wrapper para iniciar a aplicação:
 
-Acesse a Aplicação Após iniciar, a aplicação estará disponível em http://localhost:8080. A página de chat está na rota:
+    ```bash
+    ./mvnw spring-boot:run
+    ```
 
-http://localhost:8080/chat
+    *(Se estiver usando Windows, use `mvnw spring-boot:run`)*
+
+3.  **Acesse a Aplicação**
+    Após iniciar, a aplicação estará disponível em `http://localhost:8080`.
+    A página de chat está na rota:
+
+    ```
+    http://localhost:8080/chat
+    ```
+
 
 <img width="1755" height="943" alt="image" src="https://github.com/user-attachments/assets/6ef55d29-d9b5-43e2-ac64-271ae83cd03c" />
+
