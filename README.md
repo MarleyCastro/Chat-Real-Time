@@ -1,11 +1,7 @@
 ﻿# Chat-Real-Time
 
 # <a href="https://www.youtube.com/watch?v=qiTa1eJh9JI&feature=youtu.be">Clique aqui !! </a>
-
-Ah, você quer uma **descrição (README)** para o seu projeto de chat em tempo real no GitHub\! Isso é essencial para que outros desenvolvedores entendam o que o projeto faz e como executá-lo.
-
-Aqui está um modelo de README em Markdown, que você pode salvar como `README.md` na raiz do seu projeto antes de enviá-lo para o GitHub:
-
+
 -----
 
 # 💬 Chat Application (Spring Boot & WebSocket)
