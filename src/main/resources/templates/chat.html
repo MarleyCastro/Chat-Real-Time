@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Timer Chat Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.2.0/bundles/stomp.umd.js"></script>
+
+</head>
+
+<body>
+<div class="container mt-4">
+    <h1 class="text-center">Real-Timer Chat Application</h1>
+    <div id="chat" class="border rounded p-3 mb-3" style="height: 300px; overflow-y: auto;">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" id="senderInput" class="form-control" placeholder="Your name...">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" id="messageInput" class="form-control" placeholder="Type a mensage...">
+
+        <main>
+            <section class="card-container">
+                <!-- Cards serão renderizados aqui pelo JavaScript -->
+            </section>
+        </main>
+
+        <div id="input-group-append">
+            <button id="sendMessage" type="button" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-container">
+            <button id="modal-close-btn" class="modal-close-btn">✕</button>
+
+            <div class="modal-info">
+                <h1 id="modal-title">Please !! Type your message.</h1>
+                <p id="modal-description">anything messege here</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+<script>
+    const modalCloseBtn = document.querySelector("#modal-close-btn");
+    const modalOverlay = document.querySelector("#modal-overlay");
+    var stompClient = null;
+
+    modalOverlay.style.display = 'none';
+
+    function setConnected(connected) {
+        document.getElementById('sendMessage').disabled = !connected;
+    }
+
+    function connect() {
+
+        var socket = new SockJS('/chat');
+
+        stompClient = StompJs.Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            setConnected(true);
+
+            stompClient.subscribe('/topic/messages', function (message) {
+
+                showMessage(JSON.parse(message.body));
+            });
+        }, function (error) {
+            console.error('STOMP Error:', error);
+            setConnected(false);
+        });
+    }
+
+
+    function showMessage(message) {
+        var chat = document.getElementById('chat');
+        var messageElement = document.createElement('h3');
+        messageElement.textContent = message.sender + ' : ' + message.content;
+        messageElement.class = "border-bottom mb-1";
+        chat.appendChild(messageElement);
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    function sendMessage() {
+        var sender = document.getElementById('senderInput').value;
+        var content = document.getElementById('messageInput').value;
+        if (!sender || !content) {
+            modalOverlay.style.display = 'block';
+            modalCloseBtn.addEventListener("click", fecharModal);
+            return;
+        }
+        var chatMessage = {
+            sender: sender,
+            content: content
+        };
+
+        if (stompClient && stompClient.connected) {
+            stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
+            document.getElementById('messageInput').value = '';
+        } else {
+            console.error("Not connected to STOMP server.");
+        }
+    }
+    document.getElementById('sendMessage').addEventListener('click', sendMessage);
+    window.onload = connect;
+
+    function abrirModal(dado) {
+        veiculoAtual = dado;
+
+        // Abre o modal com animação
+        modalOverlay.style.display = 'flex';
+
+        // Pequeno delay para a animação funcionar
+        setTimeout(() => {
+            modalOverlay.classList.add('active');
+        }, 10);
+
+        // Previne scroll do body quando modal está aberto
+        body.style.overflow = 'hidden';
+    }
+
+    function fecharModal() {
+        modalOverlay.classList.remove('active');
+
+        // Aguarda a animação terminar antes de esconder
+        setTimeout(() => {
+            modalOverlay.style.display = 'none';
+        }, 300);
+
+        // Restaura o scroll do body
+        body.style.overflow = 'auto';
+    }
+
+
+
+</script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #171A1D;
+    }
+
+    .text-center {
+        color: aliceblue;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    #chat {
+        height: 2;
+        overflow-y: auto;
+        background-color: #0A0E27;
+        color: #FFFFFF;
+    }
+
+    #modal-title {
+        width: 100%;
+        font-weight: bolder;
+        text-align: center;
+        padding: 10px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+
+    p {
+        width: 100%;
+        font-weight: bolder;
+        text-align: center;
+        padding: 10px;
+        color: #000000;
+        background-color: #ffffff;
+    }
+
+    /* ======= */
+
+    .modal-overlay {
+        position: fixed;
+        background-color: white;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+
+.modal-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--bg-color);
+    border-radius: 1.5rem;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.7);
+    transition: transform 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--border-color);
+}
+
+.modal-container {
+    background-color: #FFFFFF;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #c70000;
+    border-style: none;
+    color: #FFFFFF;
+}
+
+
+h3 {
+    width: 50%;
+    font-weight: 800;
+    padding: 10px;
+    background-color: #00C393;
+    border-radius: 10px;
+}
+
+
+</style>
+
+</html>
